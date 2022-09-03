@@ -1,0 +1,27 @@
+public:
+    vector<double> v;
+    map<int,vector<int>>mp;
+    
+    void PO(TreeNode* root, int level){
+        if(!root)return;
+        PO(root->left,level+1);
+        PO(root->right, level+1);
+        mp[level].push_back(root->val);
+        return;
+            
+    }
+    vector<double> averageOfLevels(TreeNode* root) {
+        PO(root,0);
+        for(auto &[a,b]:mp){
+            double ct=0;
+            double sum=0;
+            for(auto i:b){
+                sum+=i;
+                ct++;
+            }
+            v.push_back(sum/ct);
+        }
+        return v;
+        
+        
+    }
