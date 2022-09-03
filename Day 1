@@ -1,0 +1,13 @@
+int soln(TreeNode* root, int hi){
+        if(root){
+            int i=soln(root->left, max(hi,root->val))+soln(root->right, max(hi,root->val));
+            if(root->val>=hi){
+                i++;
+            }
+            return i;
+        }
+        return 0;
+    }
+    int goodNodes(TreeNode* root) {
+        return soln(root,-10001);
+    }
