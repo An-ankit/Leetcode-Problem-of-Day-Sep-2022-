@@ -1,0 +1,23 @@
+public:
+    vector<vector<int>> levelOrder(Node* root) {
+        vector<vector<int>> v;
+        if(!root)return v;
+        queue<Node*>q;
+        q.push(root);
+        while(!q.empty()){
+            int l=q.size();
+            vector<int> vec;
+            while(l--){
+                auto cur=q.front();
+                q.pop();
+                vec.push_back(cur->val);
+                for(auto it:cur->children){
+                    q.push(it);
+                    
+                }
+            }
+            v.push_back(vec);
+            
+        }
+        return v;
+    }
