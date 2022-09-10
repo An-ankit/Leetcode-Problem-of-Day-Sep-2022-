@@ -1,0 +1,26 @@
+public:
+    int maxProfit(int k, vector<int>& prices) {
+        if(k==0)return 0;
+        if(prices.size()==0 || prices.size()==1)return 0;
+        vector<vector<int>> v(k+1,vector<int> (prices.size()));
+        for(int i=0;i<v.size();i++){
+            for(int j=0;j<v[i].size();j++){
+                if(i==0 || j==0)v[i][j]==0;
+            else{
+                int p;
+                int mx=INT_MIN;
+                for(int k=0;k<j;k++){
+                    p=prices[j]-prices[k]+v[i-1][k];
+                    mx=max(p,mx);
+                    v[i][j]=max(v[i][j-1],mx);
+                    
+                    
+                }
+            }
+            }
+            
+        }
+        
+        return v[v.size()-1][prices.size()-1];
+        
+    }
