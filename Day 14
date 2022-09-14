@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int pseudoPalindromicPaths (TreeNode* root, int ct=0) {
+        
+        if(!root){
+            return 0;
+        }
+        ct ^= 1 << root->val;
+        
+        int ans= pseudoPalindromicPaths(root->left,ct)+pseudoPalindromicPaths(root->right,ct);
+        if(!root->left && !root->right && (ct & (ct-1))==0)ans++;
+        
+        return ans;
+        
+    }
+};
