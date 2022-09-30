@@ -1,0 +1,45 @@
+// Problem Link- https://leetcode.com/problems/the-skyline-problem/
+
+class Solution {
+public:
+    vector<vector<int>> getSkyline(vector<vector<int>>& buildings) {
+        priority_queue<vector<int>>pq;
+        map<int,vector<pair<int,int>>>mp;
+        vector<vector<int>>ans;
+        int ct=0;
+        int w=0;
+        for(auto it : buildings){
+            mp[it[0]].push_back({it[2],it[1]});
+            mp[it[1]].push_back({0,0});
+            
+        }
+        for(auto i:mp){
+            auto vec =i.second;
+            for(auto j: vec){
+                if(j.first!=0){
+                    pq.push({j.first,j.second});
+                }
+            }
+            if(i.first==w)ct=0;
+            while(!pq.empty() && pq.top()[1]<=i.first)pq.pop();
+            if(!pq.empty() && pq.top()[0]>ct){
+                ct=pq.top()[0];\
+                w=pq.top()[1];
+                ans.push_back({i.first,ct});
+                
+            }
+            else if(ct==0){
+                ans.push_back({i.first,0});
+            }
+        }
+        vector<vector<int>>v;
+        int pre=-1;
+        for(auto i:ans){
+            if(i[1]!=pre){
+                v.push_back(i);
+                pre=i[1];
+            }
+        }
+        return v;
+    }
+};
